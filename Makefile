@@ -1,6 +1,6 @@
 DOCKER_TAG				?= "go-hello-world"
 PORT					?= "8080"
-GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gotest go test -v -cover
+GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 
 .PHONY : build
 build:

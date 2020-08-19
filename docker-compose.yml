@@ -5,7 +5,7 @@ services:
         image: gohelloworld:latest
         ports: 
             - "8080:8080"
-    gotest:
+    gobase:
         image: golang:latest
         working_dir: "/app"
         volumes: 
