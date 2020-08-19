@@ -1,0 +1,12 @@
+version: '3'
+services:
+    gohelloworld:
+        build: .
+        image: gohelloworld:latest
+        ports: 
+            - "8080:8080"
+    gotest:
+        image: golang:latest
+        working_dir: "/app"
+        volumes: 
+            - "./:/app"
