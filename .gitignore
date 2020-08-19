@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+aws.env
 
 # Test binary, built with `go test -c`
 *.test
