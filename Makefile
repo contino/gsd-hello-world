@@ -1,5 +1,6 @@
 DOCKER_TAG				?= "go-hello-world"
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
+DYNAMODB_TABLE			?= ${DOCKER_TAG}-${HASH}
 PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
@@ -21,7 +22,7 @@ test:
 .PHONY: create_table
 create_table:
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
-		--table-name ${FULL_TAG} \
+		--table-name ${DYNAMODB_TABLE} \
 		 --attribute-definitions \
 			AttributeName=GIT_COMMIT,AttributeType=S \
 			AttributeName=VERACODE_ID,AttributeType=S \
@@ -33,7 +34,7 @@ create_table:
 
 create_tags:
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb put-item \
-		--table-name ${FULL_TAG}  \
+		--table-name ${DYNAMODB_TABLE}  \
 		--item \
 			'{"GIT_COMMIT": {"S": "${HASH}"}, "VERACODE_ID":{"S": ${VERACODE_ID}}}'
 .PHONY: clean
