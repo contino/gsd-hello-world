@@ -21,7 +21,9 @@ This hello world app (written in Golang) demonstrates the following features:
 
 ## Pipeline
 
-Github actions is used to demonstrate a best practice pipeline: [Hello World Pipeline](https://github.com/contino/gsd-hello-world/actions)
+Github actions is used to demonstrate a best practice pipeline: [Hello World Pipeline](https://github.com/contino/gsd-hello-world/actions).
+
+This includes the creation of artifacts ("packages") for each commit: [Hello World Packages](https://github.com/contino/gsd-hello-world/packages).
 
 # More Info
 
