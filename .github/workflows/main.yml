@@ -26,7 +26,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ynniss/golang-security-action@master
       with:
-        #CODE_PATH: "./src/" # <<< TARGET STATE
+        #CODE_PATH: "./src/" # <<< we should move our go source into a generic src container so the refernce app is nicely organized and it's easier to build/find source
         CODE_PATH: "./"
 
     - name: Build the Go package
@@ -35,14 +35,15 @@ jobs:
     - name: Run the Go package locally (detached)
       run: make run
 
+    # this was just in here to prove our the publish, should actually edit the make build do write the correct image name then we can remove this step
     - name: Build image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
-    - name: Log into registry
-      run: echo "${{ secrets.GITHUBTOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-    - name: Push image
+    # this is a bit verbose so probably time we wrapped it in make (it was just a copy/paste from github actions anyway)
+    - name: Log into registry and Push image
       run: |
+        echo "${{ secrets.GITHUBTOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
         # Change all uppercase to lowercase
