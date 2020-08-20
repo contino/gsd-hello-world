@@ -41,6 +41,15 @@ jobs:
           # we always use the latest patch version.
           version: v1.29
           
+          # Optional: working directory, useful for monorepos
+          working-directory: "./"
+
+          # Optional: golangci-lint command line arguments.
+          # args: --issues-exit-code=0
+
+          # Optional: show only new issues if it's a pull request. The default value is `false`.
+          # only-new-issues: true 
+            
   build:
     
     runs-on: ubuntu-latest
