@@ -17,7 +17,7 @@ This hello world app (written in Golang) demonstrates the following features:
 - Building an application (`make build`)
 - Running an application locally (`make run` then open `http://localhost:8080/` in your browser)
 - Testing an application (`make test`)
-- Storing properties associated with an application artifact (`make create_table && make create_tags`)
+- Storing properties associated with an application artifact (`make create_table` && `make create_tags`)
 
 **note:** some actions expect an `aws.env` file to communicate with AWS infrastructure for the purposes of the demo. See `Makefile` for more information.
 
