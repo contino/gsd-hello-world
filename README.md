@@ -29,6 +29,10 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 # More Info
 
+## Requirements
+
+You need to setup the secret `GITHUBTOKEN` to allow for packages to be published to Github Packages.
+
 ## Artifact Sotrage
 
 **AWS DynamoDB** was used to keep the demo as simple and self-contained as possible, with the view than it would be replaced by an actual artifact store for a real impelmentation. For this reason the demo requires AWS credentials for some actions.
