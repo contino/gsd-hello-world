@@ -1,6 +1,6 @@
 # hello-world-go
 
-[![Actions Status](https://github.com/{owner}/{repo}/workflows/{workflow_name}/badge.svg)](https://github.com/{owner}/{repo}/actions)
+[![Build Status](https://github.com/contino/gsd-hello-world/workflows/ci/badge.svg)](https://github.com/contino/gsd-hello-world/actions)
 
 ## Principals
 
