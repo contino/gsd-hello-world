@@ -42,7 +42,7 @@ jobs:
           version: v1.29
           
           # Optional: working directory, useful for monorepos
-          working-directory: "./"
+          #working-directory: "./"
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
@@ -63,11 +63,37 @@ jobs:
     #    #CODE_PATH: "./src/" # <<< we should move our go source into a generic src container so the refernce app is nicely organized and it's easier to build/find source
     #    CODE_PATH: "./"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     - name: Build the Go package
       run: make build
 
     - name: Run the Go package locally (detached)
       run: make run
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # this was just in here to prove our the publish, should actually edit the make build do write the correct image name then we can remove this step
     - name: Build image
