@@ -1,6 +1,24 @@
 # hello-world-go
 
+**Github Actions**
+
 [![Build Status](https://github.com/contino/gsd-hello-world/workflows/CI/badge.svg)](https://github.com/contino/gsd-hello-world/actions)
+
+
+**Sonar**
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=alert_status)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=security_rating)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=bugs)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=code_smells)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=coverage)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=ncloc)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=sqale_index)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=barrrrrrrrr&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=barrrrrrrrr)
+
 
 ## Principals
 
