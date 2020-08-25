@@ -14,3 +14,7 @@ aws.env
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# ide specific directories
+.idea
+.vscode
