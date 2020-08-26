@@ -49,7 +49,7 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 ## Requirements
 
-You need to setup the secret `GITHUBTOKEN` to allow for packages to be published to Github Packages.
+You need to setup the secret `SONAR_TOKEN` to allow sonar scanning.
 
 ## Artifact Sotrage
 
