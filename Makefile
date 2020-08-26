@@ -21,7 +21,7 @@ test:
 
 .PHONY: create_table
 create_table:
-	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
+	${AWS_CLI_DOCKER_COMPOSE} -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY dynamodb create-table \
 		--table-name ${DYNAMODB_TABLE} \
 		 --attribute-definitions \
 			AttributeName=GIT_COMMIT,AttributeType=S \
@@ -33,7 +33,7 @@ create_table:
         	ReadCapacityUnits=10,WriteCapacityUnits=5
 
 create_tags:
-	${AWS_CLI_DOCKER_COMPOSE} dynamodb put-item \
+	${AWS_CLI_DOCKER_COMPOSE} -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY dynamodb put-item \
 		--table-name ${DYNAMODB_TABLE}  \
 		--item \
 			'{"GIT_COMMIT": {"S": "${HASH}"}, "VERACODE_ID":{"S": ${VERACODE_ID}}}'
