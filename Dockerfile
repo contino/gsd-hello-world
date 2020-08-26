@@ -14,4 +14,6 @@ RUN go build -o main .
 
 EXPOSE 8080
 
+This will go horribly wrong!
+
 CMD ["./main"]
