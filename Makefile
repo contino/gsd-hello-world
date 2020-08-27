@@ -10,6 +10,8 @@ VERACODE_ID?= "someveracodeid"
 ENVFILE ?= aws.template
 
 envfile:
+	echo "from envfile"
+	echo "FOO=${FOO}"
 	cp $(ENVFILE) aws.env
 
 .PHONY : build
@@ -26,6 +28,8 @@ test:
 
 .PHONY: create_table
 create_table: envfile
+	echo "from create_table"
+	echo "FOO=${FOO}"
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
 		--table-name ${DYNAMODB_TABLE} \
 		 --attribute-definitions \
