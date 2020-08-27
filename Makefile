@@ -12,6 +12,7 @@ ENVFILE ?= aws.template
 envfile:
 	echo "from envfile"
 	echo "FOO=${FOO}"
+	echo "BAR=${BAR}"	
 	cp $(ENVFILE) aws.env
 
 .PHONY : build
@@ -30,6 +31,7 @@ test:
 create_table: envfile
 	echo "from create_table"
 	echo "FOO=${FOO}"
+	echo "BAR=${BAR}"
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
 		--table-name ${DYNAMODB_TABLE} \
 		 --attribute-definitions \
