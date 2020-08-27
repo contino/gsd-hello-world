@@ -10,7 +10,7 @@ VERACODE_ID?= "someveracodeid"
 ENVFILE ?= aws.template
 
 envfile:
-	copy $(ENVFILE) aws.env
+	cp $(ENVFILE) aws.env
 
 .PHONY : build
 build:
