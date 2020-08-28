@@ -1,4 +1,4 @@
-DOCKER_TAG				?= "go-hello-world"
+DOCKER_TAG				?= go-hello-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
 DYNAMODB_TABLE			?= ${DOCKER_TAG}-${HASH}
 PORT					?= "8080"
