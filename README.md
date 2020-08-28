@@ -49,7 +49,13 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 ## Requirements
 
-You need to setup the secret `SONAR_TOKEN` to allow sonar scanning.
+You will require the following environment variables in your shell (or in the case of a build server like Github Actions, in your Settings/Secrets section).
+
+`SONAR_TOKEN` is used to allow sonar scanning.
+
+`GH_PACKAGES` is used to upload to Github Packages.
+
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_DEFAULT_REGION` are used for access to AWS to manage data in DynamoDB.
 
 ## Artifact Sotrage
 
