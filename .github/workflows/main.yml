@@ -63,7 +63,7 @@ jobs:
       run: make run
 
     - name: Create DynamboDB Table in AWS
-      run: make create_table
+      run: make create_table && make create_tags
       env:
         FOO: ${{ secrets.FOO }}
         BAR: "BAZ"
