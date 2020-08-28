@@ -55,7 +55,7 @@ jobs:
 
 
 
-    - name: Build the Go package
+    - name: Tests
       run: make test
       
     - name: Build the Go package
