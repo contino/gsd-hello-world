@@ -23,7 +23,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: gsd
+  GKE_CLUSTER: gsd-stable # using v1.15 (future versions won't allow deployment.yml) https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
   GKE_ZONE: us-central1-c
   DEPLOYMENT_NAME: gke-from-github
   IMAGE: hello-world
