@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY go.mod go.sum ./
 
+COPY src ./
+
 RUN go mod download
 
 COPY . .
