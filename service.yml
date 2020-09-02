@@ -20,6 +20,6 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 5000
+      targetPort: 8080
   selector:
     app: gke-test
