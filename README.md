@@ -49,6 +49,17 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 ## Requirements
 
+### Desktop
+
+You'll need make/docker/compose, on a Mac this should do:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+brew cask install docker
+```
+
+### Other
+
 You will require the following environment variables in your shell (or in the case of a build server like Github Actions, in your Settings/Secrets section).
 
 `SONAR_TOKEN` is used to allow sonar scanning.
