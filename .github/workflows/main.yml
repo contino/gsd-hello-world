@@ -29,7 +29,17 @@ jobs:
         #CODE_PATH: "./src/" 
         # ^^^ we should move our go source into a generic src container so the refernce app is nicely organized and it's easier to build/find source
         CODE_PATH: "./"
-            
+
+  security-gosec:
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+      - name: Run Gosec Security Scanner
+        uses: securego/gosec@master
+        with:
+          args: ./...
+
   build:
     
     runs-on: ubuntu-latest
