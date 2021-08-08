@@ -1,5 +1,7 @@
 # hello-world-go
 
+GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in Docker via 3 Musketeers 
+
 **Github Actions**
 
 [![Build Status](https://github.com/contino/gsd-hello-world/workflows/CI/badge.svg)](https://github.com/contino/gsd-hello-world/actions)
