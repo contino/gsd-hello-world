@@ -8,7 +8,7 @@ GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in D
 
 ![Repo Visualizer](repo-visualizer.svg)
 
-As seen in: https://github.com/githubocto/repo-visualizer
+As seen in: https://octo.github.com/projects/repo-visualization
 
 **Sonar**
 
