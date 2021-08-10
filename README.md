@@ -73,7 +73,7 @@ You will require the following environment variables in your shell (or in the ca
 
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_DEFAULT_REGION` are used for access to AWS to manage data in DynamoDB.
 
-## Artifact Sotrage
+## Artifact Storage
 
 **AWS DynamoDB** was used to keep the demo as simple and self-contained as possible, with the view than it would be replaced by an actual artifact store for a real impelmentation. For this reason the demo requires AWS credentials for some actions.
 
