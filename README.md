@@ -6,6 +6,9 @@ GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in D
 
 [![Build Status](https://github.com/contino/gsd-hello-world/workflows/CI/badge.svg)](https://github.com/contino/gsd-hello-world/actions)
 
+![Repo Visualizer](repo-visualizer.svg)
+
+As seen in: https://github.com/githubocto/repo-visualizer
 
 **Sonar**
 
