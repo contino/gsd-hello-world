@@ -1,6 +1,6 @@
 # hello-world-go
 
-GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in Docker via 3 Musketeers 
+GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in Docker via [3 Musketeers](https://3musketeers.io/)
 
 **Github Actions**
 
@@ -54,14 +54,18 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 ## Requirements
 
-### Desktop
+### Desktop / Workstation Setup
 
-You'll need make/docker/compose, on a Mac this should do:
+You'll need `make`, `docker`, and `docker-compose` on your workstation.
+
+On a Mac this should do:
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 brew cask install docker
 ```
+
+For Windows machines, `make` can be installed a number of ways, ie directly, via Chocolatey, or via WSL.
 
 ### Other
 
