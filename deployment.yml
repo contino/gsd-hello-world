@@ -32,7 +32,7 @@ spec:
       - name: gke-test
         image: gcr.io/contino-919ebf1dd6da5f73/hello-world:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
         resources:
           requests:
             cpu: 100m

@@ -4,9 +4,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"fmt"
+	"os"
 )
 
 func TestGETHome(t *testing.T) {
+
+	
 	t.Run("returns 200 status code", func(t *testing.T) {
 		request, _ := http.NewRequest(http.MethodGet, "/", nil)
 		response := httptest.NewRecorder()
@@ -34,5 +38,17 @@ func TestGETHome(t *testing.T) {
 			t.Errorf("got %q, want %q", got, want)
 		}
 	})
+
+	rc :=0
+
+    if testing.CoverMode() != "" {
+        c := testing.Coverage()
+        if c < 0.8 {
+            fmt.Println("Tests passed but coverage failed at", c)
+            rc = -1
+        }
+	}
+	
+    os.Exit(rc)
 
 }

@@ -23,7 +23,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: gsd
+  GKE_CLUSTER: gsd-stable # using v1.15 (future versions won't allow deployment.yml) https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/
   GKE_ZONE: us-central1-c
   DEPLOYMENT_NAME: gke-from-github
   IMAGE: hello-world
@@ -90,7 +90,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        ./kustomize edit set image gcr.io/$PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
