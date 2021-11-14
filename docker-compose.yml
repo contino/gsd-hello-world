@@ -15,3 +15,11 @@ services:
         working_dir: "/app"
         env_file: 
             - ./aws.env
+
+    wdio-testlocal:
+        image: localtest-hello-world
+        working_dir: "/app"
+        volumes:
+            - "./test:/app"
+        environment:
+            - BROWSER=$BROWSER

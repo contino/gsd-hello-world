@@ -1,0 +1,2 @@
+https:www.google.com:443:.:^firstPartyDomain=google-b-d.search.suggestions.mozilla:3	0	18843	https:www.google.com:443:www.google.com:443::n:1628081179:h3:n:1628081141:n:^firstPartyDomain=google-b-d.search.suggestions.mozilla:|n:y:
+https:safebrowsing.googleapis.com:443:.:^firstPartyDomain=safebrowsing.86868755-6b82-4842-b301-72671a0db32e.mozilla:3	0	18843	https:safebrowsing.googleapis.com:443:safebrowsing.googleapis.com:443::n:1628081205:h3:n:1628081141:n:^firstPartyDomain=safebrowsing.86868755-6b82-4842-b301-72671a0db32e.mozilla:|n:y:

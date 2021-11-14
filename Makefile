@@ -1,11 +1,15 @@
 DOCKER_TAG				?= go-hello-world
+DOCKER_LOCALTEST_TAG	?= localtest-hello-world
+DOCKER_BSTEST_TAG		?= bstest-hellow-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
 DYNAMODB_TABLE			?= ${DOCKER_TAG}
 PORT					?= "8080"
-GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
-AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
-HASH := $(shell git rev-parse HEAD)
-VERACODE_ID?= "someveracodeid"
+GO_TEST_DOCKER_COMPOSE	?= docker-compose run --rm gobase go test -v -cover
+AWS_CLI_DOCKER_COMPOSE 	?= docker-compose run --rm awscli
+WDIO_LOCALTEST_COMPOSE 	?= BROWSER=${BROWSER} docker-compose run wdio-testlocal
+HASH 					:= $(shell git rev-parse HEAD)
+VERACODE_ID				?= "someveracodeid"
+BROWSER					?= "chrome"
 
 ENVFILE ?= aws.template
 
@@ -15,9 +19,17 @@ envfile:
 	echo "BAR=${BAR}"	
 	cp $(ENVFILE) aws.env
 
-.PHONY : build
+.PHONY: build
 build:
 	docker build -t ${FULL_TAG} .
+
+.PHONY: build-testlocal
+build-testlocal:
+	docker build -f Dockerfile-test -t ${DOCKER_LOCALTEST_TAG} .
+
+.PHONY: build-testbs
+build-testbs:
+	docker build -f Dockerfile-test.bs -t ${DOCKER_BSTEST_TAG} .
 
 .PHONY: run
 run:
@@ -30,6 +42,16 @@ down:
 .PHONY: test
 test: envfile
 	${GO_TEST_DOCKER_COMPOSE}
+
+.PHONY: testlocal
+testlocal: build-testlocal
+	${WDIO_LOCALTEST_COMPOSE}
+#	BASEURL=https://bond.local:$(PROXY_PORT_$(PRODUCT)) BROWSER=${BROWSER} npx wdio run wdio.conf.${BROWSER}.js --suite ${TESTARGS} --cucumberOpts.tagExpression=${TESTTAGS}
+
+testbs:
+	npm install
+	BASEURL=https://bond.local:$(PROXY_PORT_$(PRODUCT)) BROWSER=browserstack npx wdio run wdio.conf.browserstack.js --suite ${TESTARGS} --cucumberOpts.tagExpression=${TESTTAGS}
+
 
 .PHONY: create_table
 create_table: envfile

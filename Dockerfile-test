@@ -1,0 +1,43 @@
+ARG BROWSER=chrome
+FROM selenium/standalone-${BROWSER}:latest
+ARG BROWSER
+
+SHELL ["/bin/bash", "-c"]
+USER root:root
+ENV HOME /root
+
+RUN apt-get update
+
+# INSTALL make
+RUN apt-get install -y make 
+#g++ build-essential python
+
+# nvm environment variables
+ENV NVM_DIR $HOME/.nvm
+ENV NODE_VERSION 14.16.1
+
+# install node and npm
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# CONFIG 
+RUN npm config set --global strict-ssl false && \
+    npm config set --global unsafe-perm true
+
+# SETUP APP
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY test/package.json .
+RUN npm install
+
+# RUN TEST
+ENV BROWSER ${BROWSER}
+CMD npx wdio run "wdio.conf.$BROWSER.js"
