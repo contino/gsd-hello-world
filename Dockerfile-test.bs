@@ -1,18 +1,21 @@
-FROM registry.gitlab.int.bell.ca/entpay/ace/images/react-cicd:1
+FROM node:14-alpine
 
 SHELL ["/bin/bash", "-c"]
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# INSTALL JAVA
-# RUN apk update
-RUN apk add --update --no-cache openjdk8
+USER root:root
+ENV HOME /root
+
+RUN apt-get update
+
+# INSTALL make
+RUN apt-get install -y make 
 
 # SETUP APP
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY ./browser-logs.js ./tools/testing/browser-logs.js
 COPY package.json .
 RUN npm install
 

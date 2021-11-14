@@ -33,12 +33,12 @@ exports.config = merge(
             '--window-size=1440,735',
           ],
         },
-        proxy: {
-          proxyType: "manual",
-          httpProxy: "http://fastweb.int.bell.ca:8083",
-          sslProxy: "http://fastweb.int.bell.ca:8083",
-          noProxy: "localhost,127.0.0.1,*.local,nexus.entpay.int.bellmedia.ca,registry.entpay.int.bellmedia.ca,gitlab.entpay.int.bellmedia.ca,gitlab.int.bell.ca,registry.gitlab.int.bell.ca"
-        }
+        // proxy: {
+        //   proxyType: "manual",
+        //   httpProxy: "http://myproxy:80",
+        //   sslProxy: "http://myproxy:443",
+        //   noProxy: "localhost,127.0.0.1"
+        // }
       },
     ],
   },

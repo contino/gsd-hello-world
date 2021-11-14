@@ -14,12 +14,10 @@ exports.config = merge(wdioConf.config, {
         browserstackLocal: true,
         'browserstack.networkLogsOptions': { captureContent: 'true'},
         opts: {
-          proxyHost: 'fastweb.int.bell.ca',
-          proxyPort: 8083,
-          'local-proxy-host': 'fastweb.int.bell.ca',
-          'local-proxy-port': 8083,
+          // proxyHost: 'myproxy',
+          // proxyPort: 80,
           forcelocal: false,
-          only: 'bond.local,3001,1'
+          // only: 'localhost,8080,1'
         }
       },
     ],
