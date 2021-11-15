@@ -17,9 +17,15 @@ services:
             - ./aws.env
 
     wdio-testlocal:
-        image: localtest-hello-world
+        # image: registry.gitlab.int.bell.ca/entpay/ace/react-test-docker/reacttest.chrome
+        image: localtest-hello-world:$BROWSER
         working_dir: "/app"
         volumes:
-            - "./test:/app"
+            - "./test/wdio.conf.js:/app/wdio.conf.js"
+            - "./test/wdio.conf.chrome.js:/app/wdio.conf.chrome.js"
+            - "./test/wdio.conf.firefox.js:/app/wdio.conf.firefox.js"
+            - "./test/features:/app/features"
         environment:
             - BROWSER=$BROWSER
+        depends_on:
+            - gohelloworld

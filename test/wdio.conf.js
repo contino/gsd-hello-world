@@ -4,7 +4,7 @@ const { removeSync } = require('fs-extra')
 const fs = require('fs');
 const cucumberJson = require('wdio-cucumberjs-json-reporter').default
 
-const BASEURL = process.env.BASEURL || 'http://localhost:8080'
+const BASEURL = process.env.BASEURL || 'http://gohelloworld:8080'
 console.log(`The base URL is ${BASEURL}`)
 const BROWSER = process.env.BROWSER || 'chrome'
 
@@ -227,12 +227,13 @@ exports.config = {
    */
 
   beforeSession(config, capabilities, specs) {
-    // eslint-disable-next-line global-require
-    require('@babel/register')
 
     const path = specs[0];
+    console.log(`The path is ${path}`)
     const testname = path.replace(/^.*[\\/]/, '').replace(/.js/, '');
-    const projectname = config.suite[0]+`_test_${new Date().toLocaleDateString()}`;
+    console.log(`The testname is ${testname}`)
+    const projectname = `test_${new Date().toLocaleDateString()}`;
+    console.log(`The projectname is ${projectname}`)
     // capabilities.project = `${projectname}`;
     // 'capabilities.bstack:options.projectName' = `${projectname}`;
     // capabilities.name = `${testname}`;

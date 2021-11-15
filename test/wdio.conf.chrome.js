@@ -3,7 +3,8 @@ const wdioConf = require('./wdio.conf.js')
 // have main config file as default but overwrite environment specific information
 
 const drivers = {
-  chrome: { version: '91.0.4472.101' }, // https://chromedriver.chromium.org/
+  // chrome: { version: '91.0.4472.101' }, // https://chromedriver.chromium.org/
+  chrome: { version: '95.0.4638.54' }, // https://chromedriver.chromium.org/
 }
 
 exports.config = merge(
@@ -28,7 +29,7 @@ exports.config = merge(
           args: [
             '--no-sandbox',
             '--disable-infobars',
-            ...process.env.HEADLESS ? ['--headless'] : [],
+            '--headless',
             '--disable-gpu',
             '--window-size=1440,735',
           ],

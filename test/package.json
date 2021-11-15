@@ -2,6 +2,7 @@
   "name": "react-cucumber",
   "scripts": {},
   "devDependencies": {
+    "@wdio/sync": "^7.4.6",
     "@wdio/browserstack-service": "^7.8.0",
     "@wdio/cli": "^7.16.6",
     "@wdio/cucumber-framework": "^7.4.6",

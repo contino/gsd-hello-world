@@ -1,6 +1,6 @@
 DOCKER_TAG				?= go-hello-world
 DOCKER_LOCALTEST_TAG	?= localtest-hello-world
-DOCKER_BSTEST_TAG		?= bstest-hellow-world
+DOCKER_BSTEST_TAG		?= bstest-hello-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
 DYNAMODB_TABLE			?= ${DOCKER_TAG}
 PORT					?= "8080"
@@ -9,7 +9,8 @@ AWS_CLI_DOCKER_COMPOSE 	?= docker-compose run --rm awscli
 WDIO_LOCALTEST_COMPOSE 	?= BROWSER=${BROWSER} docker-compose run wdio-testlocal
 HASH 					:= $(shell git rev-parse HEAD)
 VERACODE_ID				?= "someveracodeid"
-BROWSER					?= "chrome"
+BROWSER					?= chrome
+BROWSERS 				:= chrome firefox
 
 ENVFILE ?= aws.template
 
@@ -25,7 +26,10 @@ build:
 
 .PHONY: build-testlocal
 build-testlocal:
-	docker build -f Dockerfile-test -t ${DOCKER_LOCALTEST_TAG} .
+	for BROWSR in $(BROWSERS); do \
+	 	docker build --build-arg BROWSER=$$BROWSR -f Dockerfile-test \
+		   -t ${DOCKER_LOCALTEST_TAG}:${BROWSER} . ; \
+	done
 
 .PHONY: build-testbs
 build-testbs:
