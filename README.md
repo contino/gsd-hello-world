@@ -46,13 +46,13 @@ See [artifact property storage](https://github.com/contino/gsd-hello-world#artif
 
 Entrypoint that creates and references the golang application as a docker image (go-hello-world) via [Dockerfile](https://github.com/contino/gsd-hello-world/blob/master/Dockerfile). It's used for `build` and `run` actions.
 
-Calls compose to drive the `test` action, and `create_table` / `create_tags` which work as a very basic artifact storage demo.
+Calls `docker-compose` to drive the `test` action, and `create_table` / `create_tags` which work as a very basic artifact storage demo.
 
-Ideally all/most/more of the actions would be driven out of the compose file to further simplify the Makefile.
+Ideally, all/most/more of the actions would be driven out of the `compose` file to further simplify the Makefile.
 
 #### [Dockerfile](https://github.com/contino/gsd-hello-world/blob/master/Dockerfile)
 
-The dockerfile is based on [FROM golang:latest](https://hub.docker.com/_/golang) which is an official image. Our Dockerfile aims to offer the most simple implementation of building the application for the purposes of running a demo.
+The `Dockerfile` is based on [FROM golang:latest](https://hub.docker.com/_/golang) which is an official image. Our `Dockerfile` aims to offer the most simple implementation of building the application for the purposes of running a demo.
 
 #### [docker-compose.yml](https://github.com/contino/gsd-hello-world/blob/master/docker-compose.yml)
 
@@ -78,7 +78,7 @@ Github actions is used to demonstrate a best practice pipeline: [Hello World Pip
 
 This is also where we experiment with new [workflows](https://github.com/contino/gsd-hello-world/tree/master/.github/workflows) some of which have more polish than others. The aim is to demo as many features as possible, with the intent that specific implementations will have different requirements and use cases.
 
-Ideally we'd aim to have all actions referenced using Make and Dockerfiles so they can be run locally too, though for some we've started with using Github Actions and may revisit them later.
+Ideally we'd aim to have all actions referenced using `Make` and `Dockerfile`s so they can be run locally too, though for some we've started with using Github Actions and may revisit them later.
 
 ### What the pipeline does
 
@@ -121,9 +121,9 @@ You will require the following environment variables in your shell (or in the ca
 
 ## Artifact Storage
 
-Artifact Storage actions expect an `aws.env` file to communicate with AWS infrastructure. This feature is an important precursor for the "verify" part of "trust and verify" pipelines so that verification reports can be build ontop of this metadata (something large organizations may desire for a "single path to production").
+Artifact Storage actions expect an `aws.env` file to communicate with AWS infrastructure. This feature is an important precursor for the "verify" part of "trust and verify" pipelines so that verification reports can be built on top of this metadata (something large organizations may desire for a "single path to production").
 
-**AWS DynamoDB** was used to keep the demo as simple and self-contained as possible (ie not have to manager an Artifactory or Nexus instance just for this demo), with the view than it would be replaced by an actual artifact and properties store for a real impelmentation.
+**AWS DynamoDB** was used to keep the demo as simple and self-contained as possible (ie not have to manage an Artifactory or Nexus instance just for this demo), with the view that it would be replaced by an actual artifact and properties store for a real implementation.
 
 This demo wraps it's DynamoDB calls with `make` via `make create_table` and `make create_tags` targets to prove implementation is viable.
 
