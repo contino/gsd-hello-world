@@ -11,7 +11,7 @@ For more context see [How to implement Good Software Delivery in 30 seconds](htt
 - [Developer Experince](https://medium.com/@drew.khoury/optimizing-for-dx-the-developer-experience-f37fe168642d)
 - [3 Musketeers](https://medium.com/@drew.khoury/3-musketeers-for-an-epic-developer-experience-8676ddaf33b2)
 
-This repo is a **learning tool** that can help you explore the concepts of GSD & Trust and Verify. The intention is to offer you an implementation that's simple enough for you to get hands-on quickly, with the oppotutnity to extend it for other use cases, or simply take the leanrings into your existing software development for the concepts that apply to your use case.
+This repo is a **learning tool** that can help you explore the concepts of GSD & Trust and Verify. The intention is to offer you an implementation that's simple enough for you to get hands-on quickly, with the opportunity to extend it for other use cases, or simply take the learnings into your existing software development for the concepts that apply to your use case.
 
 What this is not:
 
