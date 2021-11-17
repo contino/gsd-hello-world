@@ -24,7 +24,7 @@ What this is not:
 This repo demostrates best practices of `Good Software Delivery` by following these principals:
 
 - All build steps are wrapped in a common interface (for our demo/implementation **we've chosen `Make`** but that doesn't exclude you choosing what's appropriate for your team and organization)
-- Exectuion of each step via Docker images where possible (some shell/API calls have been used in this demo as an exception)
+- Execution of each step via Docker images where possible (some shell/API calls have been used in this demo as an exception)
 - A single commit results in one artifact (which is immutable)
 
 It's important to note that the use of `Make` is **not to build the software**, but rather it's to act as in interface. Understanding 3 Musketeers is an important part of undertanding why we chose `Make` as an interface between the pipeline and application code. See [3musketeers tools](https://3musketeers.io/about/tools.html) and alternatives, and patterns for a detailed walkthough of other options.
