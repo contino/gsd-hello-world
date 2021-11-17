@@ -44,7 +44,7 @@ See [artifact property storage](https://github.com/contino/gsd-hello-world#artif
 
 #### [Makefile](https://github.com/contino/gsd-hello-world/blob/master/Makefile)
 
-Entrypoint that creates and refernces the golang application as a docker image (go-hello-world) via [Dockerfile](https://github.com/contino/gsd-hello-world/blob/master/Dockerfile). It's used for `build` and `run` actions.
+Entrypoint that creates and references the golang application as a docker image (go-hello-world) via [Dockerfile](https://github.com/contino/gsd-hello-world/blob/master/Dockerfile). It's used for `build` and `run` actions.
 
 Calls compose to drive the `test` action, and `create_table` / `create_tags` which work as a very basic artifact storage demo.
 
