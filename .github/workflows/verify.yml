@@ -11,7 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    -   name: Setup SSH Keys and known_hosts (for RO permission to gsd-verification-rules repo)
+    - name: Check public
+      uses: actions/checkout@v2  
+      with:
+        repository: contino/docker-aws-cli
+        ref: master        path: drewtestpublic
+      
+-   name: Setup SSH Keys and known_hosts (for RO permission to gsd-verification-rules repo)
         env:
             SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
@@ -25,6 +31,7 @@ jobs:
       with:
         repository: contino/gsd-verification-rules
         ref: main
+        path: drewtest
     
     - name: Run all verification rules from gsd-verification-rules
       run: make verify
