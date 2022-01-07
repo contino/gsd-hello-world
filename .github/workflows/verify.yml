@@ -12,7 +12,7 @@ jobs:
     steps:
 
     - name: Check out my other private repo
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
       with:
         repository: contino/gsd-verification-rules    
     
