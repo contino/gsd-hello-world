@@ -33,6 +33,7 @@ jobs:
         repository: contino/gsd-verification-rules
         ref: main
         path: drewtest
+        ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
     
     - name: Run all verification rules from gsd-verification-rules
       run: make verify
