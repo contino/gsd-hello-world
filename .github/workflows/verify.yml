@@ -17,12 +17,12 @@ jobs:
         repository: contino/docker-aws-cli
         ref: master        path: drewtestpublic
       
--   name: Setup SSH Keys and known_hosts (for RO permission to gsd-verification-rules repo)
-        env:
-            SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-            ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-            ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+    - name: Setup SSH Keys and known_hosts (for RO permission to gsd-verification-rules repo)
+      env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
 
     - name: Check out gsd-verification-rules (private repo)
       uses: actions/checkout@v2
