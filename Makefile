@@ -33,8 +33,8 @@ test: envfile
 
 .PHONY: verify
 verify:
-	git clone git@github.com:contino/gsd-verification-rules.git
-	make verify 
+	git clone git@github.com:contino/gsd-verification-rules.git || true 
+	cd gsd-verification-rules && git pull && make verify 
 
 .PHONY: create_table
 create_table: envfile
