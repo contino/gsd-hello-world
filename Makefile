@@ -34,7 +34,7 @@ test: envfile
 .PHONY: verify
 verify:
 	git clone https://github.com/contino/gsd-verification-rules
-	make verify-all 
+	make verify 
 
 .PHONY: create_table
 create_table: envfile
