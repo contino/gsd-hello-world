@@ -15,7 +15,8 @@ jobs:
       uses: actions/checkout@v2  
       with:
         repository: contino/docker-aws-cli
-        ref: master        path: drewtestpublic
+        ref: master        
+        path: drewtestpublic
       
     - name: Setup SSH Keys and known_hosts (for RO permission to gsd-verification-rules repo)
       env:
