@@ -14,7 +14,8 @@ jobs:
     - name: Check out my other private repo
       uses: actions/checkout@v2
       with:
-        repository: contino/gsd-verification-rules    
+        repository: contino/gsd-verification-rules
+        ref: main
     
     - name: Run all verification rules from gsd-verification-rules
       run: make verify
