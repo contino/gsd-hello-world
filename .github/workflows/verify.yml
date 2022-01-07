@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+   pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+    - name: Run all verification rules from gsd-verification-rules
+      run: make verify
