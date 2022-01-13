@@ -40,6 +40,7 @@ verify:
 
 .PHONY: security
 security:
+	mkdir output
 	${GO_SECURITY_DOCKER_COMPOSE}
 
 .PHONY: create_table
