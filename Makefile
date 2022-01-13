@@ -36,6 +36,10 @@ verify:
 	git clone git@github.com:contino/gsd-verification-rules.git || true 
 	cd gsd-verification-rules && git pull && make verify 
 
+.PHONY: security
+security:
+	docker run owasp/zap2docker-weekly zap-baseline.py -t http://172.17.0.2:${PORT}
+
 .PHONY: create_table
 create_table: envfile
 	echo "from create_table"
