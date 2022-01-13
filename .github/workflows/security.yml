@@ -8,8 +8,11 @@ name: security
 
 jobs:
   security:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  
+    
     steps:
+      - name: security
+        run: make security 
       - name: Archive security results
         uses: actions/upload-artifact@v2
         with:
