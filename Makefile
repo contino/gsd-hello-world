@@ -39,8 +39,8 @@ verify:
 	cd gsd-verification-rules && git pull && make verify 
 
 .PHONY: security
-security:
-	mkdir output
+security: envfile
+	mkdir -p output
 	${GO_SECURITY_DOCKER_COMPOSE}
 
 .PHONY: create_table
