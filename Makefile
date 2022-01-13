@@ -6,7 +6,6 @@ GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
 HASH := $(shell git rev-parse HEAD)
 VERACODE_ID?= "someveracodeid"
-GO_SECURITY_DOCKER_COMPOSE ?= docker-compose run --rm security zap-baseline.py -t http://gohelloworld:${PORT} > output/security-report.txt
 
 
 ENVFILE ?= aws.template
@@ -41,7 +40,7 @@ verify:
 .PHONY: security
 security: envfile
 	mkdir -p output
-	${GO_SECURITY_DOCKER_COMPOSE}
+	docker-compose run --rm security zap-baseline.py -t http://gohelloworld:${PORT} > output/security-report.txt || true
 
 .PHONY: create_table
 create_table: envfile
