@@ -1,6 +1,6 @@
 DOCKER_TAG				?= go-hello-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
-DYNAMODB_TABLE			?= ${DOCKER_TAG}
+DYNAMODB_TABLE			?= ${DOCKER_TAG}-test
 PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
@@ -9,6 +9,11 @@ VERACODE_ID?= "someveracodeid"
 PIPELINE_ID?= "some-pipeline-identifier"
 
 ENVFILE ?= aws.template
+
+.DEFAULT_GOAL := help
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 envfile:
 	echo "from envfile"
@@ -38,17 +43,10 @@ create_table: envfile
 	echo "FOO=${FOO}"
 	echo "BAR=${BAR}"
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
-		--table-name ${DYNAMODB_TABLE} \
-		 --attribute-definitions \
-			AttributeName=GIT_COMMIT,AttributeType=S \
-			AttributeName=VERACODE_ID,AttributeType=S \
-			AttributeName=PIPELINE_ID,AttributeType=S \
-    	--key-schema \
-			AttributeName=GIT_COMMIT,KeyType=HASH \
-			AttributeName=VERACODE_ID,KeyType=RANGE \
-			AttributeName=PIPELINE_ID,KeyType=RANGE \			
-		--provisioned-throughput \
-        	ReadCapacityUnits=10,WriteCapacityUnits=5
+	--table-name ${DYNAMODB_TABLE} \
+	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=VERACODE_ID,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
+	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=VERACODE_ID,KeyType=RANGE AttributeName=PIPELINE_ID,KeyType=RANGE \
+	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5
 
 create_tags: envfile
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb put-item \
