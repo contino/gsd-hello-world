@@ -45,7 +45,7 @@ create_table: envfile
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
 	--table-name ${DYNAMODB_TABLE} \
 	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=VERACODE_ID,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
-	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=VERACODE_ID,KeyType=RANGE AttributeName=PIPELINE_ID,KeyType=RANGE \
+	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=PIPELINE_ID,KeyType=RANGE \
 	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5
 
 create_tags: envfile
