@@ -7,7 +7,7 @@ services:
             - "8080:8080"
     gobase:
         image: golang:latest
-        working_dir: "/app"
+        working_dir: "/app/src"
         volumes: 
             - "./:/app"
     awscli:
