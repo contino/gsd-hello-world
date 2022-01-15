@@ -5,7 +5,6 @@ PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
 HASH := $(shell git rev-parse HEAD)
-VERACODE_ID?= "someveracodeid"
 PIPELINE_ID?= "some-pipeline-identifier"
 
 ENVFILE ?= aws.template
@@ -51,8 +50,7 @@ create_table: envfile
 create_tags: envfile
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb put-item \
 		--table-name ${DYNAMODB_TABLE}  \
-		--item \
-			'{ "GIT_COMMIT": {"S": "${HASH}"}, "VERACODE_ID":{"S": ${VERACODE_ID}} , "PIPELINE_ID":{"S": ${PIPELINE_ID}} }'
+		--item '{ "GIT_COMMIT": {"S": "${HASH}"}, "PIPELINE_ID":{"S": ${PIPELINE_ID}} }'
 
 .PHONY: clean
 clean:
