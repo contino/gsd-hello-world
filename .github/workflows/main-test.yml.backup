@@ -1,3 +1,8 @@
+# Used to test things during PR's that would normally only happen on main branch
+#
+# eg updates to dynamodb table
+#
+
 name: Main CI (PR TEST)
 
 on:
