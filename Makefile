@@ -36,6 +36,11 @@ down:
 test: envfile
 	${GO_TEST_DOCKER_COMPOSE}
 
+.PHONY: verify
+verify:
+	git clone git@github.com:contino/gsd-verification-rules.git || true 
+	cd gsd-verification-rules && git pull && make verify 
+
 .PHONY: create_table
 create_table: envfile
 	echo "from create_table"

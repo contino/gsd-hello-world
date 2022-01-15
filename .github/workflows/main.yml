@@ -26,9 +26,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ynniss/golang-security-action@master
       with:
-        #CODE_PATH: "./src/" 
-        # ^^^ we should move our go source into a generic src container so the refernce app is nicely organized and it's easier to build/find source
-        CODE_PATH: "./"
+        CODE_PATH: "./src/" 
 
   security-gosec:
     runs-on: ubuntu-latest
