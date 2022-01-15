@@ -19,8 +19,12 @@ jobs:
 
   buildtest:
     runs-on: ubuntu-latest
+        
     steps:
-    
+
+    - name: checkout repo
+      uses: actions/checkout@v2
+
     - name: Create DynamboDB Table in AWS - To store metadata (one-time)
       run: make create_table
       env:
