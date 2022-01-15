@@ -50,7 +50,7 @@ create_table: envfile
 create_tags: envfile
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb put-item \
 		--table-name ${DYNAMODB_TABLE}  \
-		--item '{ "GIT_COMMIT": {"S": "${HASH}"}, , "PIPELINE_BASE":{"S": "${PIPELINE_BASE}"}, "PIPELINE_ID":{"S": "${PIPELINE_ID}"} }'
+		--item '{ "GIT_COMMIT": {"S": "${HASH}"}, "PIPELINE_BASE":{"S": "${PIPELINE_BASE}"}, "PIPELINE_ID":{"S": "${PIPELINE_ID}"} }'
 
 .PHONY: clean
 clean:
