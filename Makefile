@@ -1,6 +1,6 @@
 DOCKER_TAG				?= go-hello-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
-DYNAMODB_TABLE			?= ${DOCKER_TAG}-testx
+DYNAMODB_TABLE			?= ${DOCKER_TAG}-v2
 PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
