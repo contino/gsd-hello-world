@@ -1,9 +1,14 @@
 # hello-world-go
 
+GSD :: Good Software Delivery - Hello World App Written in Golang - Wrapped in Docker via [3 Musketeers](https://3musketeers.io/)
+
 **Github Actions**
 
 [![Build Status](https://github.com/contino/gsd-hello-world/workflows/CI/badge.svg)](https://github.com/contino/gsd-hello-world/actions)
 
+![Repo Visualizer](repo-visualizer.svg)
+
+As seen in: https://octo.github.com/projects/repo-visualization
 
 **Sonar**
 
@@ -49,14 +54,18 @@ This includes the creation of artifacts ("packages") for each commit: [Hello Wor
 
 ## Requirements
 
-### Desktop
+### Desktop / Workstation Setup
 
-You'll need make/docker/compose, on a Mac this should do:
+You'll need `make`, `docker`, and `docker-compose` on your workstation.
+
+On a Mac this should do:
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 brew cask install docker
 ```
+
+For Windows machines, `make` can be installed a number of ways, ie directly, via Chocolatey, or via WSL.
 
 ### Other
 
@@ -68,7 +77,7 @@ You will require the following environment variables in your shell (or in the ca
 
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_DEFAULT_REGION` are used for access to AWS to manage data in DynamoDB.
 
-## Artifact Sotrage
+## Artifact Storage
 
 **AWS DynamoDB** was used to keep the demo as simple and self-contained as possible, with the view than it would be replaced by an actual artifact store for a real impelmentation. For this reason the demo requires AWS credentials for some actions.
 
