@@ -43,8 +43,8 @@ func TestGETHome(t *testing.T) {
 
     if testing.CoverMode() != "" {
         c := testing.Coverage()
-        if c < 0.8 {
-            fmt.Println("Tests passed but coverage failed at", c)
+        if c < 0.15 {
+            fmt.Println("Tests passed but test-coverage below threshold of at least 15%. Current test-coverage is: ", c)
             rc = -1
         }
 	}
