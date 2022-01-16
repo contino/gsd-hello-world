@@ -3,7 +3,7 @@
 # eg updates to dynamodb table
 #
 
-name: Main CI (PR TEST)
+name: Main CI (TESTING for PRs)
 
 on:
   pull_request:
