@@ -18,27 +18,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }} # not sure why gh didn't let me create a secret with an underscore in it????????
 
 jobs:
-  security:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ynniss/golang-security-action@master
-      with:
-        CODE_PATH: "./src/" 
-
-  security-gosec:
-    runs-on: ubuntu-latest
-    env:
-      GO111MODULE: on
-    steps:
-      - name: Checkout Source
-        uses: actions/checkout@v2
-      - name: Run Gosec Security Scanner
-        uses: securego/gosec@master
-        with:
-          args: ./...
 
   build:
     
