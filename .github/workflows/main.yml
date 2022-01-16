@@ -83,7 +83,7 @@ jobs:
     # this is a bit verbose so probably time we wrapped it in make (it was just a copy/paste from github actions anyway)
     - name: Log into registry and Push image
       run: |
-        echo "${{ secrets.GH_PACKAGES }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        echo "${{ secrets.GH_PACKAGES_2 }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
