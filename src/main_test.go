@@ -54,3 +54,21 @@ func TestGETHome(t *testing.T) {
 	}
 	
 }
+
+func TestGetOneEvent(t *testing.T) {
+    t.Run("returns 200 status code", func(t *testing.T) {
+		request, _ := http.NewRequest(http.MethodGet, "/events/1", nil)
+		response := httptest.NewRecorder()
+
+		getOneEvent(response, request)
+
+		got := response.Result().StatusCode
+		want := 200
+
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
+
+	
+}
