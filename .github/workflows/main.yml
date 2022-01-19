@@ -12,6 +12,7 @@ on:
 
   # Run tests for any PRs.
   pull_request:
+    types: [opened, synchronize, reopened]
 
 env:
   IMAGE_NAME: go-hello-world
@@ -30,7 +31,16 @@ jobs:
 
     - name: Tests
       run: make test
-      
+
+    - name: Security Tests
+      run: make security 
+
+    - name: Archive security results
+      uses: actions/upload-artifact@v2
+      with:
+        name: security-report
+        path: output/security-report.txt
+
     - name: Build the Go package
       run: make build
 
