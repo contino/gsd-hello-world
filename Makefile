@@ -46,6 +46,7 @@ verify:
 security: envfile
 	mkdir -p output
 	docker-compose run --rm security zap-baseline.py -t http://gohelloworld:${PORT} > output/security-report.txt || true
+	docker-compose down
 
 .PHONY: create_table
 create_table: envfile
