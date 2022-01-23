@@ -57,7 +57,7 @@ jobs:
 
     # this was just in here to prove our the publish, should actually edit the make build do write the correct image name then we can remove this step
     - name: Build image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "commit-sha=${GITHUB_SHA}" --label "pipeline-id=${GITHUB_RUN_ID}" --label "git-ref=${GITHUB_REF_NAME}"
 
     # this is a bit verbose so probably time we wrapped it in make (it was just a copy/paste from github actions anyway)
     - name: Log into registry and Push image
