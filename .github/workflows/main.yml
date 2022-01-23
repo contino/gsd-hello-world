@@ -76,7 +76,10 @@ jobs:
         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
         # Use Docker `latest` tag convention
-        [ "$VERSION" == "master" ] && VERSION=latest
+        [ "$VERSION" == "main" ] && VERSION=latest
+        
+        # show we can use git_sha as tag for non-versions and non-main (needs proper logic)
+        VERSION=${GITHUB_SHA}
 
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
