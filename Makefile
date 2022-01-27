@@ -1,6 +1,6 @@
 DOCKER_TAG				?= go-hello-world
 FULL_TAG				?= ${DOCKER_TAG}:${HASH}
-DYNAMODB_TABLE			?= ${DOCKER_TAG}-v2Lutz
+DYNAMODB_TABLE			?= ${DOCKER_TAG}-v3
 PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
@@ -55,8 +55,8 @@ create_table: envfile
 	echo "BAR=${BAR}"
 	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
 	--table-name ${DYNAMODB_TABLE} \
-	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
-	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=PIPELINE_ID,KeyType=RANGE \
+	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S  \
+	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH \
 	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5 --region us-east-2
 
 create_tags: envfile
