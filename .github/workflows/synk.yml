@@ -1,16 +1,4 @@
-# name: Snyk - Check for vulnerabilities in this Golang project
-# on: push
-# jobs:
-#   security:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#       - name: Run Snyk to check for vulnerabilities
-#         uses: snyk/actions/golang@master
-#         env:
-#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          
-name: Snyk - Check for vulnerabilities in this Golang project          
+     name: Snyk - Check for vulnerabilities in this Golang project          
 on: push
 jobs:
   security:
