@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+      types: [opened, synchronize, reopened]
+name: Verify
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out gsd-verification-rules repo
+      uses: actions/checkout@v2
+      with:
+        repository: contino/gsd-verification-rules
+        ref: main
+        path: gsd-verification-rules
+        ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
+    
+    - name: Run all verification rules
+      run: cd gsd-verification-rules && make verify
