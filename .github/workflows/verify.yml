@@ -22,5 +22,3 @@ jobs:
     - name: Run all verification rules
       run: cd gsd-verification-rules && make verify
 
-    - name:
-      run: echo GITHUB_REPOSITORY=${{ GITHUB_REPOSITORY }}
