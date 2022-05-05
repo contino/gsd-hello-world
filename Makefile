@@ -1,7 +1,9 @@
 3M_IMAGE_NAME			?= flemay/musketeers
-DOCKER_TAG				?= go-hello-world
-FULL_TAG				?= ${DOCKER_TAG}:${HASH}
-DYNAMODB_TABLE			?= ${DOCKER_TAG}-v2
+REGISTRY_URL			:= ghcr.io
+GITHUB_REPOSITORY		?= contino/gsd-hello-world
+IMAGE_NAME				?= go-hello-world
+FULL_TAG				?= ${REGISTRY_URL}/${GITHUB_REPOSITORY}/${IMAGE_NAME}:${HASH}
+DYNAMODB_TABLE			?= ${IMAGE_NAME}-v2
 PORT					?= "8080"
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
@@ -41,13 +43,21 @@ envfile: ## Create envfile
 build: ## Build the application
 	docker build -t ${FULL_TAG} .
 
+.PHONY: push
+push: dockerlogin ## Push the containerized application
+	docker push ${FULL_TAG}
+
+.PHONY: dockerlogin
+dockerlogin: ## Login to docker registry
+	docker login ${REGISTRY_URL}
+
 .PHONY: run
 run: ## Run the application
-	docker run -d -p ${PORT}:${PORT} --name ${DOCKER_TAG} ${FULL_TAG}
+	docker run -d -p ${PORT}:${PORT} --name ${IMAGE_NAME} ${FULL_TAG}
 
 .PHONY: down
 down: ## Stop the application
-	docker rm -f ${DOCKER_TAG}
+	docker rm -f ${IMAGE_NAME}
 
 .PHONY: test
 test: envfile  ## Test the application
@@ -77,8 +87,8 @@ create_tags: envfile
 
 .PHONY: clean
 clean: ## Cleanup and remove docker application
-	docker kill ${DOCKER_TAG}
-	docker rm ${DOCKER_TAG}
+	docker kill ${IMAGE_NAME}
+	docker rm ${IMAGE_NAME}
 
 .PHONY: pull-3m-image
 pull-3m-image: ## Pull 3M image for local executions
