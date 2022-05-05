@@ -18,4 +18,4 @@ jobs:
           sarif_file: snyk.sarif
 
       - name: test echo
-        run: echo GITHUB_REPOSITORY=${{ GITHUB_REPOSITORY }}
+        run: echo GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
