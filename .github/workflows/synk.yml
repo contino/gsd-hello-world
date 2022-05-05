@@ -1,4 +1,4 @@
-     name: Snyk - Check for vulnerabilities in this Golang project          
+name: Snyk - Check for vulnerabilities in this Golang project          
 on: push
 jobs:
   security:
