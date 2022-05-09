@@ -20,5 +20,5 @@ jobs:
         ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
     
     - name: Run all verification rules
-      run: cd gsd-verification-rules && make verify
+      run: cd gsd-verification-rules && ./run verify
 

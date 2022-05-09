@@ -25,16 +25,16 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Tests
-      run: make test
+      run: ./run test
       
     - name: Build the Go package
-      run: make build
+      run: ./run build
 
     - name: Run the Go package locally (detached)
-      run: make run
+      run: ./run run
 
     - name: Create tags in DynamboDB Table in AWS - Metadata for this commit
-      run: make create_tags
+      run: ./run create_tags
       env:
         PIPELINE_ID: ${GITHUB_RUN_ID}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -49,4 +49,4 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push image
-      run: make push
+      run: ./run push
