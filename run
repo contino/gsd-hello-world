@@ -32,42 +32,35 @@ function _dc {
 
 # -----------------------------------------------------------------------------
 
-function envfile { 
-    ## Create envfile
+function envfile { ## Create envfile
 	echo "from envfile"
 	echo "FOO=${FOO}"
 	echo "BAR=${BAR}"	
 	cp $ENVFILE aws.env
 }
 
-function build {
-    ## Build the application
+function build { ## Build the application
 	docker build -t ${FULL_TAG} .
 }
 
-function push {
-    ## Push the containerized application
+function push { ## Push the containerized application
     dockerlogin
 	docker push ${FULL_TAG}
 }
 
-function dockerlogin {
-    ## Login to docker registry
+function dockerlogin { ## Login to docker registry
 	docker login ${REGISTRY_URL}
 }
 
-function run {
-    ## Run the application
+function run { ## Run the application
 	docker run -d -p ${PORT}:${PORT} --name ${IMAGE_NAME} ${FULL_TAG}
 }
 
-function down {
-    # Stop the application
+function down { ## Stop the application
 	docker rm -f ${IMAGE_NAME}
 }
 
-function test {
-    ## Test the application
+function test { ## Test the application   
     envfile  
 	_dc gobase go test -v -cover
 }
@@ -96,23 +89,19 @@ function create_tags {
 		--item '{ "GIT_COMMIT": {"S": "${HASH}"}, "PIPELINE_BASE":{"S": "${PIPELINE_BASE}"}, "PIPELINE_ID":{"S": "${PIPELINE_ID}"} }'
 }
 
-function clean {
-    ## Cleanup and remove docker application
+function clean { ## Cleanup and remove docker application
 	docker kill ${IMAGE_NAME}
 	docker rm ${IMAGE_NAME}
 }
 
-function pull-3m-image {
-    ## Pull 3M image for local executions
+function pull-3m-image { ## Pull 3M image for local executions
 	docker pull ${3M_IMAGE_NAME}
 }
 
 function help {
-  printf "%s <task> [args]\n\nTasks:\n" "${0}"
-
-  compgen -A function | grep -v "^_" | cat -n
-
-  printf "\nExtended help:\n  Each task has comments for general usage\n"
+	echo -e "\n------------------------------------- Tasks with descriptions -------------------------------------\n"
+	grep -E 'function [a-zA-Z_-]+ {.*?## .*$$' ./run | sort | sed 's|function ||' | awk 'BEGIN {FS = " {.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $1, $2}'
+	echo -e "\n---------------------------------------------------------------------------------------------------\n"
 }
 
 function list {
