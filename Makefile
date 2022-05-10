@@ -77,7 +77,8 @@ create_table: envfile
 	--table-name ${DYNAMODB_TABLE} \
 	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
 	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=PIPELINE_ID,KeyType=RANGE \
-	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5
+	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5 \
+	--tags Key=Permanent,Value=True
 
 .PHONY: create_tags
 create_tags: envfile
