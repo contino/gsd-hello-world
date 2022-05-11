@@ -3,8 +3,8 @@ name: Main CI
 on:
   push:
     # Publish `master` as Docker `latest` image.
-    branches:
-      - main
+    # branches:
+    #   - main
 
     # Publish `v1.2.3` tags as releases.
     tags:
