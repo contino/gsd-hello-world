@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+# FOR WHEN YOU DO NOT WANT TO (OR CANNOT) US MAKE
+# Found this here....
+# https://www.youtube.com/watch?v=SdmYd5hJISM
+
 # Ensure specific failures (add u if you want fail on any missing or unset variable)
 set -eo pipefail
 
@@ -112,6 +117,5 @@ function list {
   printf "\nExtended help:\n  Each task has comments for general usage\n"
 }
 
-# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
 TIMEFORMAT=$'\nTask completed in %3lR'
 time "${@:-list}"
