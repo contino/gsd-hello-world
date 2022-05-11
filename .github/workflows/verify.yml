@@ -1,7 +1,7 @@
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
   pull_request:
       types: [opened, synchronize, reopened]
 name: Verify
@@ -20,5 +20,5 @@ jobs:
         ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
     
     - name: Run all verification rules
-      run: cd gsd-verification-rules && ./run verify
+      run: cd gsd-verification-rules && make verify
 
