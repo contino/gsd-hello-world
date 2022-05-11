@@ -1,7 +1,7 @@
 name: Main CI
 
-# on:
-#   push:
+on:
+  push:
 #     # Publish `master` as Docker `latest` image.
 #     branches:
 #       - main
