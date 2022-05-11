@@ -1,17 +1,17 @@
 name: Main CI
 
-on:
-  push:
-    # Publish `master` as Docker `latest` image.
-    # branches:
-    #   - main
+# on:
+#   push:
+#     # Publish `master` as Docker `latest` image.
+#     branches:
+#       - main
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+#     # Publish `v1.2.3` tags as releases.
+#     tags:
+#       - v*
 
-  # Run tests for any PRs.
-  pull_request:
+#   # Run tests for any PRs.
+#   pull_request:
 
 jobs:
 
