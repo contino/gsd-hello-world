@@ -13,7 +13,9 @@ env:
 
 jobs:
   verify:
-    runs-on: jetbrainsinfra/jq
+    runs-on: ubuntu-latest
+    container:
+      image: jetbrainsinfra/jq
     steps:
     - run: |
         echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
