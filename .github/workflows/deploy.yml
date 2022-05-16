@@ -20,7 +20,7 @@ on:
     branches:
       - main
       - feature/gke
-
+  workflow_dispatch:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
