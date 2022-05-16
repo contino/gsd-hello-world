@@ -18,6 +18,7 @@ jobs:
       env:
         GITCOMMIT: ${{ github.sha }}
         DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
+        TOKEN: ${{ secrets.GH_ARTIFACT_TOKEN }}
 
     - name: Check out gsd-verification-rules repo
       uses: actions/checkout@v2
