@@ -8,7 +8,7 @@ name: Verify
 env: 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  TOKEN: ${{ secrets.TOKEN }}
+  TOKEN: ${{ secrets.GH_ARTIFACT_TOKEN }}
   AWS_DEFAULT_REGION: us-east-2
 
 jobs:
@@ -33,5 +33,4 @@ jobs:
         ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
     
     - name: Run all verification rules
-      run: cd gsd-verification-rules && make verify
-
+      run: cd gsd-verification-rules && env && make verify
