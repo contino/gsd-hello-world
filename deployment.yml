@@ -15,7 +15,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: gke-test
+  name: gke-test-2022
 spec:
   replicas: 1
   strategy:
