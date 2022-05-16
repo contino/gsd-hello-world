@@ -5,6 +5,8 @@ on:
   pull_request:
       types: [opened, synchronize, reopened]
 name: Verify
+env: 
+  TOKEN: ${{ secrets.GH_ARTIFACT_TOKEN }}
 
 jobs:
   verify:
@@ -18,7 +20,6 @@ jobs:
       env:
         GITCOMMIT: ${{ github.sha }}
         DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
-        TOKEN: ${{ secrets.GH_ARTIFACT_TOKEN }}
 
     - name: Check out gsd-verification-rules repo
       uses: actions/checkout@v2
