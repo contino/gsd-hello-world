@@ -10,6 +10,14 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
+    - run: |
+        echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
+        echo "GITCOMMIT=$GITCOMMIT" >> $GITHUB_ENV
+        echo "🎉 The dynamodb table is: $DYNAMODB_TABLE"
+        echo "DYNAMODB_TABLE=$DYNAMODB_TABLE" >> $GITHUB_ENV
+      env:
+        GITCOMMIT: ${{ github.sha }}
+        DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
 
     - name: Check out gsd-verification-rules repo
       uses: actions/checkout@v2
