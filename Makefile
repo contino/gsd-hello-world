@@ -96,5 +96,4 @@ pull-3m-image: ## Pull 3M image for local executions
 	docker pull ${3M_IMAGE_NAME}
 
 
-
 	
