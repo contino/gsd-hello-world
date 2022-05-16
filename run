@@ -9,7 +9,7 @@
 set -eo pipefail
 
 # If we're running in CI we need to disable TTY allocation for docker-compose
-# commands that enable it by default, such as exec and run.
+# commands that enable it by default, such as exec and run. 
 TTY=""
 if [[ ! -t 1 ]]; then
   TTY="-T"
