@@ -21,3 +21,4 @@ jobs:
     
     - name: Run all verification rules
       run: cd gsd-verification-rules && make verify
+

@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+# FOR WHEN YOU DO NOT WANT TO (OR CANNOT) US MAKE
+# Found this here....
+# https://www.youtube.com/watch?v=SdmYd5hJISM
+
+# Ensure specific failures (add u if you want fail on any missing or unset variable)
+set -eo pipefail
+
+# If we're running in CI we need to disable TTY allocation for docker-compose
+# commands that enable it by default, such as exec and run. 
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
+HASH="$(git rev-parse HEAD)"
+
+: "${ENVFILE:=aws.template}"
+: "${IMAGE_NAME_3M:=flemay/musketeers}"
+: "${REGISTRY_URL:=ghcr.io}"
+: "${GITHUB_REPOSITORY:=contino/gsd-hello-world}"
+: "${IMAGE_NAME:=go-hello-world}"
+: "${FULL_TAG:=${REGISTRY_URL}/${GITHUB_REPOSITORY}/${IMAGE_NAME}:${HASH}}"
+: "${DYNAMODB_TABLE:=${IMAGE_NAME}-v2}"
+: "${PORT:=8080}"
+: "${PIPELINE_BASE:=contino/gsd-hello-world}"
+
+# -----------------------------------------------------------------------------
+# Helper functions start with _ and aren't listed in this script's help menu.
+# -----------------------------------------------------------------------------
+
+function _dc {
+  docker-compose run --rm "${@}"
+}
+
+# -----------------------------------------------------------------------------
+
+function envfile { ## Create envfile
+	echo "from envfile"
+	echo "FOO=${FOO}"
+	echo "BAR=${BAR}"	
+	cp $ENVFILE aws.env
+}
+
+function build { ## Build the application
+	docker build -t ${FULL_TAG} .
+}
+
+function push { ## Push the containerized application
+    dockerlogin
+	docker push ${FULL_TAG}
+}
+
+function dockerlogin { ## Login to docker registry
+	docker login ${REGISTRY_URL}
+}
+
+function run { ## Run the application
+	docker run -d -p ${PORT}:${PORT} --name ${IMAGE_NAME} ${FULL_TAG}
+}
+
+function down { ## Stop the application
+	docker rm -f ${IMAGE_NAME}
+}
+
+function test { ## Test the application   
+    envfile  
+	_dc gobase go test -v -cover
+}
+
+function verify {
+	git clone git@github.com:contino/gsd-verification-rules.git || true 
+	cd gsd-verification-rules && git pull && make verify 
+}
+
+function create_table {
+    envfile
+	echo "from create_table"
+	echo "FOO=${FOO}"
+	echo "BAR=${BAR}"
+	_dc awscli dynamodb create-table \
+	--table-name ${DYNAMODB_TABLE} \
+	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
+	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=PIPELINE_ID,KeyType=RANGE \
+	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5
+}
+
+function create_tags {
+    envfile
+	_dc awscli dynamodb put-item \
+		--table-name ${DYNAMODB_TABLE}  \
+		--item '{ "GIT_COMMIT": {"S": "${HASH}"}, "PIPELINE_BASE":{"S": "${PIPELINE_BASE}"}, "PIPELINE_ID":{"S": "${PIPELINE_ID}"} }'
+}
+
+function clean { ## Cleanup and remove docker application
+	docker kill ${IMAGE_NAME}
+	docker rm ${IMAGE_NAME}
+}
+
+function pull-3m-image { ## Pull 3M image for local executions
+	docker pull ${3M_IMAGE_NAME}
+}
+
+function help {
+	echo -e "\n------------------------------------- Tasks with descriptions -------------------------------------\n"
+	grep -E 'function [a-zA-Z_-]+ {.*?## .*$$' ./run | sort | sed 's|function ||' | awk 'BEGIN {FS = " {.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $1, $2}'
+	echo -e "\n---------------------------------------------------------------------------------------------------\n"
+}
+
+function list {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-list}"

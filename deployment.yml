@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-test
+  name: gke-hello-app
 spec:
-  replicas: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gke-hello-app
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -26,15 +29,27 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-test
+        app: gke-hello-app
     spec:
       containers:
-      - name: gke-test
-        image: gcr.io/contino-919ebf1dd6da5f73/hello-world:latest
+      - name: hello-app
+        image: gcr.io/contini-0fd0de1002f7de5a/go-hello-world:latest
         ports:
         - containerPort: 8080
-        resources:
-          requests:
-            cpu: 100m
-          limits:
-            cpu: 100m
+#         resources:
+#           requests:
+#             cpu: 100m
+#           limits:
+#             cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gke-hello-app-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: gke-hello-app

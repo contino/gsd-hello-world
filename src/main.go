@@ -41,7 +41,10 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 
 	for _, singleEvent := range events {
 		if singleEvent.ID == eventID {
-			json.NewEncoder(w).Encode(singleEvent)
+			err := json.NewEncoder(w).Encode(singleEvent)
+			if err != nil {
+				log.Printf("Error encoding event: %s Error: %s", singleEvent, err)
+			}
 		}
 	}
 }
