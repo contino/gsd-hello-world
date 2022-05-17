@@ -1,22 +1,22 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
       types: [opened, synchronize, reopened]
-name: security
+name: Zap Security Scan
 
 jobs:
   security:
-    runs-on: ubuntu-latest  
-    
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
       - name: security
-        run: make security 
+        run: make security
       - name: Archive security results
         uses: actions/upload-artifact@v2
         with:

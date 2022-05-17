@@ -4,7 +4,7 @@ GITHUB_REPOSITORY		?= contino/gsd-hello-world
 IMAGE_NAME				?= go-hello-world
 FULL_TAG				?= ${REGISTRY_URL}/${GITHUB_REPOSITORY}/${IMAGE_NAME}:${HASH}
 DYNAMODB_TABLE			?= ${IMAGE_NAME}-v2
-PORT					?= "8080"
+PORT					?= 8080
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
 HASH 					:= $(shell git rev-parse HEAD)
@@ -69,7 +69,7 @@ verify:
 	cd gsd-verification-rules && git pull && make verify 
 
 .PHONY: security
-security: envfile
+security: envfile ## Run security checks against app
 	mkdir -p output
 	docker-compose run --rm security zap-baseline.py -t http://gohelloworld:${PORT} > output/security-report.txt || true
 	docker-compose down
