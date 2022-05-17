@@ -15,7 +15,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }} # contini-XXX-de5a
   GKE_CLUSTER: gke-test-2022 # Add your cluster name here.
   GKE_ZONE: us-central1    # Add your cluster zone here.
-  DEPLOYMENT_NAME: gke-from-github  # Add your deployment name here.
+  DEPLOYMENT_NAME: gke-hello-app  # Add your deployment name here.
   IMAGE: hello-world
 
 jobs:
