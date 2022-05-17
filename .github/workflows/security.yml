@@ -4,10 +4,10 @@ on:
       - main
   pull_request:
       types: [opened, synchronize, reopened]
-name: Zap Security Scan
+name: Security and Verify
 
 jobs:
-  security:
+  zap-scan:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,4 +25,5 @@ jobs:
 
   call-verify:
     uses: ./.github/workflows/verify.yml
+    needs: zap-scan
     secrets: inherit
