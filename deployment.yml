@@ -18,6 +18,9 @@ metadata:
   name: gke-test-2022
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: gke-test-2022 
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -26,10 +29,10 @@ spec:
   template:
     metadata:
       labels:
-        app: gke-test
+        app: gke-test-2022
     spec:
       containers:
-      - name: gke-test
+      - name: gke-test-2022
         image: gcr.io/contini-0fd0de1002f7de5a/hello-world:latest
         ports:
         - containerPort: 8080
