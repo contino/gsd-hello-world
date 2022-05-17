@@ -7,8 +7,6 @@ on:
         required: true
       GH_ARTIFACT_TOKEN:
         required: true
-      GITCOMMIT:
-        required: true
       DYNAMODB_TABLE:
         required: true
 
