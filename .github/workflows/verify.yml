@@ -1,6 +1,6 @@
 on:
   workflow_run:
-    workflows: [Zap Security Scan]
+    workflows: ["Zap Security Scan"]
     types: [completed]
 
 name: Verify
