@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: gcr.io/contini-0fd0de1002f7de5a/hello-world:latest
+        image: gcr.io/contini-0fd0de1002f7de5a/go-hello-world:latest
         ports:
         - containerPort: 8080
 #         resources:
