@@ -36,11 +36,11 @@ spec:
         image: gcr.io/contini-0fd0de1002f7de5a/hello-world:latest
         ports:
         - containerPort: 8080
-        resources:
-          requests:
-            cpu: 100m
-          limits:
-            cpu: 100m
+#         resources:
+#           requests:
+#             cpu: 100m
+#           limits:
+#             cpu: 100m
 ---
 apiVersion: v1
 kind: Service
