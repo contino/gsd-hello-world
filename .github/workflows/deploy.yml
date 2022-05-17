@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build and Deploy to GKE - 2022
+name: Deploy to k8s
 
 on:
   push:
