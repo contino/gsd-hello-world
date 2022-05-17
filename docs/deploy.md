@@ -12,6 +12,8 @@ There are currently a few things we're doing manually to prepare an environment:
 - IAM Service Account using permissions described here [Deploy to k8s](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine) - ie cluster admin, and storage admin (you may have to tweak permissions for your own deployment)
 - `GKE_SA_KEY` in github populated using the json key created from the above service account - ie `cat key.json | base64`
 
+The Cluster `gke-test-2022` lives in tihe project `contini-XXX-de5a` which is `Squad Zero > Andrew Khoury Contino`.
+
 ## The deployment
 
 Our github workflow `deploy.yml` ("Deploy to k8s") does the deployment, and is based on [google-github-actions](https://github.com/google-github-actions/setup-gcloud/tree/main/example-workflows/gke).
