@@ -1,9 +1,8 @@
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-      types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: [Zap Security Scan]
+    types: [completed]
+
 name: Verify
 env: 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -14,6 +13,8 @@ env:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    # Only run if the security scan was able to complete
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - run: |
         echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
