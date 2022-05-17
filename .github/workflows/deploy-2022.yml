@@ -16,7 +16,7 @@ env:
   GKE_CLUSTER: gke-test-2022 # Add your cluster name here.
   GKE_ZONE: us-central1    # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-hello-app  # Add your deployment name here.
-  IMAGE: hello-world
+  IMAGE: go-hello-world
 
 jobs:
   setup-build-publish-deploy:
