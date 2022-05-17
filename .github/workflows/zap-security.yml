@@ -22,3 +22,7 @@ jobs:
         with:
           name: security-report
           path: output/security-report.txt
+
+  call-verify:
+    uses: ./.github/workflows/verify.yml
+    secrets: inherit

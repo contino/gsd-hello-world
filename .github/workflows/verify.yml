@@ -1,7 +1,21 @@
 on:
-  workflow_run:
-    workflows: ["Zap Security Scan"]
-    types: [completed]
+  workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      GH_ARTIFACT_TOKEN:
+        required: true
+      GITCOMMIT:
+        required: true
+      DYNAMODB_TABLE:
+        required: true
+
+# This will only work in main branch (default)
+  # workflow_run:
+  #   workflows: ["Zap Security Scan"]
+  #   types: [completed]
 
 name: Verify
 env: 
@@ -14,7 +28,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     # Only run if the security scan was able to complete
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - run: |
         echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
