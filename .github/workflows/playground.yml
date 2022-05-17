@@ -1,10 +1,11 @@
-name: Security
+# These are pipeline steps we're testing that aren't GSD-like yet
+name: Playground
 
 on:
   push:
     # Publish `master` as Docker `latest` image.
     branches:
-      - master
+      - main
 
     # Publish `v1.2.3` tags as releases.
     tags:

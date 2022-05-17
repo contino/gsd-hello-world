@@ -5,6 +5,12 @@ services:
         image: gohelloworld:latest
         ports: 
             - "8080:8080"
+        healthcheck:
+            test: curl --fail http://localhost:8080 || exit 1
+            interval: 10s
+            retries: 50
+            start_period: 20s
+            timeout: 2s
     gobase:
         image: golang:latest
         working_dir: "/app/src"
@@ -15,3 +21,10 @@ services:
         working_dir: "/app"
         env_file: 
             - ./aws.env
+    security:
+        image: owasp/zap2docker-weekly
+        volumes: 
+            - "./output:/output"
+        depends_on:
+            gohelloworld:
+                condition: service_healthy
