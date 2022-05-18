@@ -91,5 +91,5 @@ jobs:
 
   call-verify:
     uses: ./.github/workflows/verify.yml
-    needs: [build, security-scan]
+    needs: [build]
     secrets: inherit
