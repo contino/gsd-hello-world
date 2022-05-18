@@ -34,7 +34,7 @@ jobs:
     - name: Archive security results
       uses: actions/upload-artifact@v2
       with:
-        name: security-report
+        name: zap-report
         path: output/security-report.txt
 
     - name: Build the Go package
@@ -71,23 +71,23 @@ jobs:
     - name: Push image
       run: make push
 
-  security-scan:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout code
-      uses: actions/checkout@v2
+  # security-scan:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: checkout code
+  #     uses: actions/checkout@v2
 
-    - name: security scans
-            # make security should run all scans in parallel using a docker-compose file with 1 service per scan
-      run: make security
+  #   - name: security scans
+  #           # make security should run all scans in parallel using a docker-compose file with 1 service per scan
+  #     run: make security
 
-      # This would be most flexible if done at the end of each security scan above as part of it's run (might be tricky to get github context)
-      # Alternatively, archive a path that they ALL write to....
-    - name: Archive security results
-      uses: actions/upload-artifact@v2
-      with:
-        name: zap-report
-        path: output/security-report.txt
+  #     # This would be most flexible if done at the end of each security scan above as part of it's run (might be tricky to get github context)
+  #     # Alternatively, archive a path that they ALL write to....
+  #   - name: Archive security results
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: zap-report
+  #       path: output/security-report.txt
 
   call-verify:
     uses: ./.github/workflows/verify.yml
