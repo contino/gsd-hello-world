@@ -1,22 +1,29 @@
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-      types: [opened, synchronize, reopened]
-name: Security and Verify
+  workflow_call
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#       types: [opened, synchronize, reopened]
+
+name: Security Scans
 
 jobs:
-  zap-scan:
+  security-scan:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
       - name: security
+             # make security should run all scans in parallel using a docker-compose file with 1 service per scan
         run: make security
+
+        # This would be most flexible if done at the end of each security scan above as part of it's run (might be tricky to get github context)
+        # Alternatively, archive a path that they ALL write to....
       - name: Archive security results
         uses: actions/upload-artifact@v2
         with:
@@ -25,5 +32,5 @@ jobs:
 
   call-verify:
     uses: ./.github/workflows/verify.yml
-    needs: zap-scan
+    needs: security-scan
     secrets: inherit

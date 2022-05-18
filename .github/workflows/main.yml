@@ -70,3 +70,8 @@ jobs:
 
     - name: Push image
       run: make push
+
+  call-security-scan:
+    uses: ./.github/workflows/security.yml
+    needs: build
+    secrets: inherit
