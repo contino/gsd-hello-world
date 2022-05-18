@@ -86,7 +86,7 @@ jobs:
     - name: Archive security results
       uses: actions/upload-artifact@v2
       with:
-        name: security-report
+        name: zap-report
         path: output/security-report.txt
 
   call-verify:
