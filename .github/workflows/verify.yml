@@ -10,11 +10,6 @@ on:
       DYNAMODB_TABLE:
         required: true
 
-# This will only work in main branch (default)
-  # workflow_run:
-  #   workflows: ["Zap Security Scan"]
-  #   types: [completed]
-
 name: Verify
 env: 
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -25,20 +20,12 @@ env:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    # Only run if the security scan was able to complete
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v3
-
     - run: |
         echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
         echo "GITCOMMIT=$GITCOMMIT" >> $GITHUB_ENV
         echo "🎉 The dynamodb table is: $DYNAMODB_TABLE"
         echo "DYNAMODB_TABLE=$DYNAMODB_TABLE" >> $GITHUB_ENV
-        echo "------"
-        pwd
-        ls -al
       env:
         GITCOMMIT: ${{ github.sha }}
         DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
@@ -57,6 +44,11 @@ jobs:
         ref: main
         path: gsd-verification-rules
         ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: gsd-verification-rules
     
     - name: Run all verification rules
       run: cd gsd-verification-rules && env && make verify
