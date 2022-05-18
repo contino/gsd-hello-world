@@ -36,6 +36,9 @@ jobs:
         echo "GITCOMMIT=$GITCOMMIT" >> $GITHUB_ENV
         echo "🎉 The dynamodb table is: $DYNAMODB_TABLE"
         echo "DYNAMODB_TABLE=$DYNAMODB_TABLE" >> $GITHUB_ENV
+        echo "------"
+        pwd
+        ls -al
       env:
         GITCOMMIT: ${{ github.sha }}
         DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
