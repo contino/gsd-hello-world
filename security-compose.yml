@@ -10,8 +10,8 @@ services:
     zap-scan:
         image: owasp/zap2docker-weekly
         volumes: 
-            - "./security-report:/output"
-        command: ["/bin/sh","-c","zap-baseline.py -t http://gohelloworld:8080 > /output/zap-security-report.txt || true"]
+            - "./security-report:/security-report"
+        command: ["/bin/sh","-c","zap-baseline.py -t http://gohelloworld:8080 > /security-report/zap-security-report.txt || true"]
 
     # Used for testing but not very good.  Waiting to add something better here
     # nikto-scan:
