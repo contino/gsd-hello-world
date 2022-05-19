@@ -8,6 +8,7 @@ networks:
 services:
 
     zap-scan:
+        user: root
         image: owasp/zap2docker-weekly
         volumes: 
             - "./security-report:/security-report"
