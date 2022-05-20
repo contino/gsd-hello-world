@@ -5,6 +5,7 @@ IMAGE_NAME				?= go-hello-world
 FULL_TAG				?= ${REGISTRY_URL}/${GITHUB_REPOSITORY}/${IMAGE_NAME}:${HASH}
 DYNAMODB_TABLE			?= ${IMAGE_NAME}-v2
 PORT					?= 8080
+DOCKER_COMPOSE			?= FULL_TAG=${FULL_TAG} docker-compose
 GO_TEST_DOCKER_COMPOSE  ?= docker-compose run --rm gobase go test -v -cover
 AWS_CLI_DOCKER_COMPOSE  ?= docker-compose run --rm awscli
 HASH 					:= $(shell git rev-parse HEAD)
@@ -34,9 +35,6 @@ _list:
 
 .PHONY: envfile
 envfile: ## Create envfile
-	echo "from envfile"
-	echo "FOO=${FOO}"
-	echo "BAR=${BAR}"	
 	cp $(ENVFILE) aws.env
 
 .PHONY: build
@@ -53,11 +51,12 @@ dockerlogin: ## Login to docker registry
 
 .PHONY: run
 run: ## Run the application
-	docker run -d -p ${PORT}:${PORT} --name ${IMAGE_NAME} ${FULL_TAG}
+	$(DOCKER_COMPOSE) up -d gohelloworld
+	$(DOCKER_COMPOSE) up healthcheck
 
 .PHONY: down
 down: ## Stop the application
-	docker rm -f ${IMAGE_NAME}
+	$(DOCKER_COMPOSE)  down
 
 .PHONY: test
 test: envfile  ## Test the application
@@ -69,22 +68,21 @@ verify:
 	cd gsd-verification-rules && git pull && make verify 
 
 .PHONY: security
-security: envfile ## Run security checks against app
-	mkdir -p output
-	docker-compose run --rm security zap-baseline.py -t http://gohelloworld:${PORT} > output/security-report.txt || true
-	docker-compose down
+security: run ## Run security checks against app
+	rm -rf security-report
+	mkdir -p security-report
+	$(DOCKER_COMPOSE) -p security -f security-compose.yml up
+	$(DOCKER_COMPOSE) -p security -f security-compose.yml down || true
+	@$(MAKE) --no-print-directory down
 
 .PHONY: create_table
 create_table: envfile
-	echo "from create_table"
-	echo "FOO=${FOO}"
-	echo "BAR=${BAR}"
-	${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
+	-${AWS_CLI_DOCKER_COMPOSE} dynamodb create-table \
 	--table-name ${DYNAMODB_TABLE} \
-	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S AttributeName=PIPELINE_ID,AttributeType=S \
-	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH AttributeName=PIPELINE_ID,KeyType=RANGE \
+	--attribute-definitions AttributeName=GIT_COMMIT,AttributeType=S \
+	--key-schema AttributeName=GIT_COMMIT,KeyType=HASH \
 	--provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=5 \
-	--tags Key=Permanent,Value=True
+	--tags Key=Permanent,Value=True 
 
 .PHONY: create_tags
 create_tags: envfile
@@ -100,7 +98,6 @@ clean: ## Cleanup and remove docker application
 .PHONY: pull-3m-image
 pull-3m-image: ## Pull 3M image for local executions
 	docker pull ${3M_IMAGE_NAME}
-
 
 
 	

@@ -1,15 +1,41 @@
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-      types: [opened, synchronize, reopened]
+  workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      GH_ARTIFACT_TOKEN:
+        required: true
+      DYNAMODB_TABLE:
+        required: true
+
 name: Verify
+env: 
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  TOKEN: ${{ secrets.GH_ARTIFACT_TOKEN }}
+  AWS_DEFAULT_REGION: us-east-2
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
+    - run: |
+        echo "🎉 The commit ID of the artifact is: $GITCOMMIT"
+        echo "GITCOMMIT=$GITCOMMIT" >> $GITHUB_ENV
+        echo "🎉 The dynamodb table is: $DYNAMODB_TABLE"
+        echo "DYNAMODB_TABLE=$DYNAMODB_TABLE" >> $GITHUB_ENV
+      env:
+        GITCOMMIT: ${{ github.sha }}
+        DYNAMODB_TABLE: ${{ secrets.DYNAMODB_TABLE }}
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Check out gsd-verification-rules repo
       uses: actions/checkout@v2
@@ -18,7 +44,11 @@ jobs:
         ref: main
         path: gsd-verification-rules
         ssh-key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: gsd-verification-rules
     
     - name: Run all verification rules
-      run: cd gsd-verification-rules && make verify
-
+      run: cd gsd-verification-rules && env && make verify

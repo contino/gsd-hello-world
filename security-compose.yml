@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  default:
+    external: false
+    name: go-hello-world
+
+services:
+
+    zap-scan:
+        user: root
+        image: owasp/zap2docker-weekly
+        volumes: 
+            - "./security-report:/security-report"
+        command: ["/bin/sh","-c","zap-baseline.py -t http://gohelloworld:8080 > /security-report/zap-security-report.txt || true"]
+
+    # Used for testing but not very good.  Waiting to add something better here
+    # nikto-scan:
+    #     image: sullo/nikto
+    #     volumes: 
+    #         - "./security-report:/output"
+    #     command: -h http://gohelloworld:8080 -o output/nikto-security-report.txt

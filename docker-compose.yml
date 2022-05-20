@@ -1,8 +1,13 @@
 version: '3'
+
+networks:
+  default:
+    external: false
+    name: go-hello-world
+
 services:
     gohelloworld:
-        build: .
-        image: gohelloworld:latest
+        image: ${FULL_TAG}
         ports: 
             - "8080:8080"
         healthcheck:
@@ -11,20 +16,20 @@ services:
             retries: 50
             start_period: 20s
             timeout: 2s
+    healthcheck:
+      image: alpine/curl
+      command: http://gohelloworld:8080 --max-time 60 --retry-max-time 60 --connect-timeout 5 --retry 10 --retry-connrefused --silent
+
     gobase:
         image: golang:latest
         working_dir: "/app/src"
         volumes: 
             - "./:/app"
+        profiles: ["test"]
     awscli:
         image: amazon/aws-cli
         working_dir: "/app"
         env_file: 
             - ./aws.env
-    security:
-        image: owasp/zap2docker-weekly
-        volumes: 
-            - "./output:/output"
-        depends_on:
-            gohelloworld:
-                condition: service_healthy
+        profiles: ["aws"]
+
