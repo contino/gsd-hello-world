@@ -1,5 +1,7 @@
 # GSD Hello World
 
+...
+
 The GSD (Good Software Delivery) "Hello World" app is written in Golang and wrapped in Docker via [3 Musketeers](https://3musketeers.io/).
 
 This repo is a **demo of how you might implement a set of concepts that make up a "Trust and Verify" pipeline**, which is a concept within the practice of GSD.
